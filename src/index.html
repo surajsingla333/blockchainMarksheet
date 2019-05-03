@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>MAIT</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.4/css/bulma.min.css">
+    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+  </head>
+  <body>
+
+    <div class="container">
+      <div id="accountAddress">
+      </div>
+      <div id="deanAd">
+      </div>
+      <div id="studMark">
+      </div>
+      <div id="loader">
+        <p>Loading...</p>
+      </div>
+      <div id="content" style="display: none;">
+        <!-- <h2 style="margin:50px">Who you are?</h2>
+        <div class="columns">
+          <div class="button is-primary column dean" style="margin: 5px">DEAN</div>
+          <div class="button is-primary column teacher" style="margin: 5px">TEACHER</div>
+          <div class="button is-primary column student" style="margin: 5px">STUDENT</div>
+        </div> -->
+        <div id="noAddress">
+          <!-- <button onclick="App.sendalert(); return false;">Alert</button> -->
+        </div>
+
+        <!-- For STUDENT -->
+        <div id="student_data">
+          <h1> Welcome Student </h1>
+          <hr>
+          
+          <div class="tile is-ancestor" style="margin-left: 40%; margin-right: 40%; padding: 1%">
+            <div class="tile is-vertical">
+              <form onSubmit="App.checkMarks(); return false;" id="getMarks">
+              <div class="field">
+                <label class="label">Address</label>
+                <div class="control">
+                  <input id="getAddressMarks" class="input" type="text"  placeholder="Text input">
+                </div>
+              </div>
+              <div class="field is-grouped">
+                <div class="control">
+                  <button type="submit" class="button is-link">Check Marks</button>
+                </div>
+              </div>
+              </form>
+            </div>
+          </div>
+          <hr>
+        </div>
+
+        <!-- for TEACHER -->
+        <div id="teacher_data">
+          <h1> Welcome Teacher</h1>
+          <hr>
+          <div class="tile is-ancestor" style="margin-left:   40%; margin-right: 40%; padding: 1%">
+            <h1><strong>Enter marks</strong></h1>
+            <div class="tile is-vertical">
+              <form id="submitMarks" onsubmit="App.submitMarks()">
+              <div class="field">
+                <label class="label">Student Address</label>
+                <div class="control">
+                  <input id="submitMarks_address" class="input"  type="text"placeholder="Text input">
+                </div>
+              </div>
+              <div class="field">
+                <label class="label">Subject ID</label>
+                <div class="control">
+                  <input id="submitMarks_ID" class="input" type="number" placeholder="Text input">
+                </div>
+              </div>
+              <div class="field">
+                <label class="label">Marks</label>
+                <div class="control">
+                  <input id="submitMarks_marks" class="input" type="number" placeholder="Text input">
+                </div>
+              </div>
+              <div class="field is-grouped">
+                <div class="control">
+                  <button type="submit" class="button is-link">Submit Marks</button>
+                </div>
+              </div>
+              </form>
+            </div>
+          </div>
+          <hr>
+        </div>
+
+        <!-- for DEAN -->
+        <div id="dean_data">
+          <h1> Welcome Dean </h1>
+          <hr>
+          <div class="tile is-ancestor">
+            <div class="tile is-verticle">
+              <div class="tile">
+                <div class="tile is-parent is-verticle">
+                  <article class="tile is-child is-vertial" style="padding:25px">
+                    <h1><strong>Add Subject</strong></h1>
+                    <form onsubmit="App.addSubject()" id="subjectAdd">
+                    <div class="field">
+                      <label class="label">Subject Name</label>
+                      <div class="control">
+                        <input id="subjectAddName" class="input" type="text" placeholder="Text input" name="subName">
+                      </div>
+                    </div>
+                    <div class="field">
+                      <label class="label">Subject ID</label>
+                      <div class="control">
+                        <input id="subjectAddID" class="input" type="number" placeholder="Text input" name="subID">
+                      </div>
+                    </div>
+                    <div class="field">
+                      <label class="label">Subject Code</label>
+                      <div class="control">
+                        <input id="subjectAddCode" class="input"type="text"placeholder="Text input" name="subCode">
+                      </div>
+                    </div>
+                    <div class="field is-grouped">
+                      <div class="control">
+                        <button type="submit" class="button is-link">Add Subject</button>
+                      </div>
+                    </div>
+                    </form>
+                    <hr>
+                  </article>
+
+                  <article class="tile is-child is-vertical" style="padding:25px">
+                    <h1><strong>Add Branch</strong></h1>
+                    <form id="branchAdd" onsubmit="App.addBranch()">
+                    <div class="field">
+                      <label class="label">Branch Name</label>
+                      <div class="control">
+                        <input id="branchAdd_name" class="input" type="text"placeholder="Text input">
+                      </div>
+                    </div>
+                    <div class="field is-grouped">
+                      <div class="control">
+                        <button type="submit" class="button is-link">Add Branch</button>
+                      </div>
+                    </div>
+                    </form>
+                    <hr>
+                  </article>
+
+                  <article class="tile is-child is-vertical" style="padding:25px">
+                    <h1><strong>Add Subject in Branch</strong></h1>
+                    <form id="subInBranch" onsubmit="App.addSubInBranch()">
+                    <div class="field">
+                      <label class="label">Branch Name</label>
+                      <div class="control">
+                        <input id="subInBranch_name" class="input" type="text"placeholder="Text input">
+                      </div>
+                    </div>
+                    <div class="field">
+                      <label class="label">Subject ID</label>
+                      <div class="control">
+                        <input id="subInBranch_subID" class="input" type="number" placeholder="Text input">
+                      </div>
+                    </div>
+                    <div class="field">
+                      <label class="label">Semester</label>
+                      <div class="control">
+                        <input id="subInBranch_sem" class="input" type="number" placeholder="Text input">
+                      </div>
+                    </div>
+                    <div class="field is-grouped">
+                      <div class="control">
+                        <button type="submit" class="button is-link">Add Subject in Branch</button>
+                      </div>
+                    </div>
+                    </form>
+                    <hr>
+                  </article>
+
+                  <article class="tile is-child is-vertical" style="padding:25px">
+                    <h1><strong>Add Teacher</strong></h1>
+                    <form id="teacherAdd" onsubmit="App.addTeach()">
+                    <div class="field">
+                      <label class="label">Teacher Address</label>
+                      <div class="control">
+                        <input id="teacherAdd_add" class="input" type="text"placeholder="Text input">
+                      </div>
+                    </div>
+                    <div class="field">
+                      <label class="label">Teacher Name</label>
+                      <div class="control">
+                        <input id="teacherAdd_name" class="input" type="text"placeholder="Text input">
+                      </div>
+                    </div>
+                    <div class="field">
+                      <label class="label">Teacher's Branch</label>
+                      <div class="control">
+                        <input id="teacherAdd_branch" class="input" type="text"placeholder="Text input">
+                      </div>
+                    </div>
+                    <div class="field">
+                      <label class="label">Teacher's Subject ID</label>
+                      <div class="control">
+                        <input id="teacherAdd_subID" class="input" type="number"placeholder="Text input">
+                      </div>
+                    </div>
+                    <div class="field is-grouped">
+                      <div class="control">
+                        <button type="submit" class="button is-link">Add Teacher</button>
+                      </div>
+                    </div>
+                    </form>
+                    <hr>
+                  </article>
+
+                  <article class="tile is-child is-vertical" style="padding:25px">
+                    <h1><strong>Add Student</strong></h1>
+                    <form id="addStudent" onsubmit="App.studentAdd()">
+                    <div class="field">
+                      <label class="label">Student Address</label>
+                      <div class="control">
+                        <input id="addStudent_add" class="input" type="text"placeholder="Text input">
+                      </div>
+                    </div>
+                    <div class="field">
+                      <label class="label">Student Name</label>
+                      <div class="control">
+                        <input id="addStudent_name" class="input" type="text"placeholder="Text input">
+                      </div>
+                    </div>
+                    <div class="field">
+                      <label class="label">Student's Branch</label>
+                      <div class="control">
+                        <input id="addStudent_branch" class="input" type="text"placeholder="Text input">
+                      </div>
+                    </div>
+                    <div class="field">
+                      <label class="label">Student's Batch</label>
+                      <div class="control">
+                        <input id="addStudent_batch" class="input" type="text"placeholder="Text input">
+                      </div>
+                    </div>
+                    <div class="field">
+                      <label class="label">Student's Class</label>
+                      <div class="control">
+                        <input id="addStudent_class" class="input" type="text"placeholder="Text input">
+                      </div>
+                    </div>
+                    <div class="field is-grouped">
+                      <div class="control">
+                        <button type="submit" class="button is-link">Add Student</button>
+                      </div>
+                    </div>
+                    </form>
+                    <hr>
+                  </article>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <!-- <script src="js/bootstrap.min.js"></script> -->
+    <script src="js/web3.min.js"></script>
+    <script src="js/truffle-contract.js"></script>
+    <script src="js/app.js"></script>
+  </body>
+</html>
