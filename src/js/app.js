@@ -31,16 +31,21 @@ App = {
 
   initWeb3: async function() {
     if(typeof web3 !== 'undefined') {
-      App.web3Provider = web3.currentProvider;
-      web3 = new Web3(web3.currentProvider);
+      App.web3Provider = window.ethereum;
+      // 'web3.currentProvider;
+      web3 = new Web3 (window.ethereum);
+      // (web3.currentProvider);
+      console.log("\nIn IF\n", web3);
     } else {
       App.web3Provider = new Web3.providers.HttpProvider('http://localhost:7545');
       web3 = new Web3(web3.web3Provider);
+      console.log("\nIn ELSE\n", web3);
     }
     return App.initContract();
   },
 
   initContract: function() {
+    ethereum.enable();
     $.getJSON("MarkSheet.json", function(marksheet) {
       // Instantiate new truffle contract from the artifact
       App.contracts.MarkSheet = TruffleContract(marksheet);
@@ -96,13 +101,16 @@ App = {
     web3.eth.getCoinbase(function(err, account) {
       if (err === null) {
         App.account = account;
+        console.log("Account is\n", account);
         $("#accountAddress").html("Your Account: " + account);
       }
     });
 
     // Load contract data
     App.contracts.MarkSheet.deployed().then(function(instance){
+      console.log("\nin deployed\n")
       markSheetInstance = instance;
+      console.log("\nmarksheet\n",markSheetInstance)
       return markSheetInstance.dean();
     }).then(function(_dean){
       markSheetInstance.subDetails(27001).then(function(ins){
@@ -135,7 +143,7 @@ App = {
         alert.show();
       }
     }).catch(function(err){
-      console.log(err);
+      console.log("\nerr\n",err);
     });
     $("#noAddress").html("Not a registered Account");
   },
